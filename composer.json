@@ -1,0 +1,25 @@
+{
+  "name": "andrekelling/kirby-block-finder",
+  "description": "Block Finder",
+  "homepage:": "https://github.com/AndreKelling/kirby-block-finder/",
+  "license": "MIT",
+  "type": "kirby-plugin",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "André Kelling",
+      "email": "kontakt@andrekelling.de"
+    }
+  ],
+  "require": {
+    "getkirby/composer-installer": "^1.2"
+  },
+  "require-dev": {
+    "getkirby/cms": "^5.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    }
+  }
+}
