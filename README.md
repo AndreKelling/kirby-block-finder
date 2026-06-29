@@ -7,6 +7,8 @@ plugin scans every page (in every language) for that block in a configurable
 blocks field, listing each page, the language, the number of occurrences, and a
 direct link into the Panel.
 
+![screenshot](screenshot.png)
+
 ## Features
 
 - Panel view listing all available block types from your blueprints
