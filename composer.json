@@ -17,9 +17,21 @@
   "require-dev": {
     "getkirby/cms": "^5.1"
   },
+  "autoload": {
+    "psr-4": {
+      "BlockFinder\\": "classes/"
+    }
+  },
   "config": {
+    "optimize-autoloader": true,
     "allow-plugins": {
       "getkirby/composer-installer": true
     }
+  },
+  "scripts": {
+    "dist": [
+      "npm run build",
+      "composer install --no-dev --optimize-autoloader"
+    ]
   }
 }
