@@ -1,0 +1,12 @@
+{
+  "name": "kirby-block-finder",
+  "version": "0.0.1",
+  "description": "Check Blocks usage on Kirby Panel",
+  "main": "index.js",
+  "author": "André Kelling",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx -y kirbyup src/index.js --watch",
+    "build": "npx -y kirbyup src/index.js"
+  }
+}
