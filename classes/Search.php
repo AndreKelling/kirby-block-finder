@@ -2,63 +2,61 @@
 
 namespace BlockFinder;
 
+use Kirby\Cms\Page;
+use Kirby\Content\Content;
+use Kirby\Content\Field;
+
 final class Search
 {
-  public static function find(): array
+  private array $langCodes;
+
+  /**
+   * normalize langCodes to array
+   *
+   * @param array|null $langCodes
+   */
+  public function __construct(?array $langCodes)
   {
-    $type = get('type');
-
-    if (!$type) {
-      return [];
+    if ($langCodes === null) {
+      $this->langCodes = [null];
+    } else {
+      $this->langCodes = $langCodes;
     }
-    $kirby = kirby();
+  }
+
+  /**
+   * find all pages with blocks of a given type
+   * 1. get all pages
+   * 2. get all blocks of a given type
+   * 3. count blocks of a given type
+   *
+   * @param string $type
+   * @return array with result object
+   */
+  public function find(string $type): array
+  {
     $results = [];
-    $fieldName = option('andrekelling.kirby-block-finder.fieldName');
-
-    foreach (site()->index() as $page) {
-      $isMultilang = $kirby->multilang();
-      $langCode = null;
-
-      if ($isMultilang) {
-        foreach($kirby->languages() as $lang) {
-          $langCode = $lang->code();
-
-          if (!$page->content($langCode)->exists()) {
-            continue;
-          }
-
-          try {
-            $blocksField = self::getBlocksField($page, $langCode, $fieldName);
-          } catch (\Exception $e) {
-            continue;
-          }
-          $count = self::getBlocksCount($blocksField, $type);
-
-          if ($count > 0) {
-            $results[] = [
-              'lang' => $langCode,
-              'pageId' => $page->id(),
-              'title' => $page->title()->value(),
-              'count' => $count,
-              'panelUrl' => $page->panel()->url() . '?language=' . $langCode
-            ];
-          }
+    $fieldName = \option('andrekelling.kirby-block-finder.fieldName');
+    foreach (\site()->index() as $page) {
+      foreach ($this->langCodes as $lang) {
+        if (!$page->content($lang)->exists()) {
+          continue;
         }
-      } else {
+
         try {
-          $blocksField = self::getBlocksField($page, $langCode, $fieldName);
-        } catch (\Exception $e) {
+          $blocksField = self::getBlocksField($page, $lang, $fieldName);
+        } catch (\Exception) {
           continue;
         }
         $count = self::getBlocksCount($blocksField, $type);
 
         if ($count > 0) {
           $results[] = [
-            'lang' => $langCode,
+            'lang' => $lang,
             'pageId' => $page->id(),
             'title' => $page->title()->value(),
             'count' => $count,
-            'panelUrl' => $page->panel()->url() . '?language=' . $langCode
+            'panelUrl' => $page->panel()->url() . '?language=' . $lang
           ];
         }
       }
@@ -67,7 +65,16 @@ final class Search
     return $results;
   }
 
-  private static function getBlocksField($page, $langCode, $fieldName): object {
+  /**
+   * get the "blocks" field of a page
+   *
+   * @param Page $page
+   * @param string|null $langCode
+   * @param string $fieldName
+   * @return Field
+   * @throws \Exception silent exception
+   */
+  private static function getBlocksField(Page $page, ?string $langCode, string $fieldName): Field {
     $blocksField = $page->content($langCode)->get($fieldName);
 
     if ($blocksField->isEmpty()) {
@@ -77,7 +84,14 @@ final class Search
     return $blocksField;
   }
 
-  private static function getBlocksCount($blocksField, $type): int {
+  /**
+   * get the count of blocks of a given type
+   *
+   * @param Field $blocksField
+   * @param string $type
+   * @return int
+   */
+  private static function getBlocksCount(Field $blocksField, string $type): int {
     $count = 0;
     $allBocksOnPage = $blocksField->value();
     $allBocksOnPageArr = json_decode($allBocksOnPage);

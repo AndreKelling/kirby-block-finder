@@ -52,7 +52,23 @@ Kirby::plugin('andrekelling/kirby-block-finder', [
         'pattern' => 'block-finder/search',
         'method'  => 'GET',
         'action'  => function () {
-          return Search::find();
+          $type = get('type');
+
+          if (!$type) {
+            return [];
+          }
+          $kirby = kirby();
+          $langCodes = null;
+
+          if ($kirby->multilang()) {
+            foreach ($kirby->languages() as $lang) {
+              $langCodes[] = $lang->code();
+            }
+          }
+
+          $search = new Search($langCodes);
+
+          return $search->find($type);
         }
       ]
     ]
