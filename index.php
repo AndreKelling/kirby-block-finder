@@ -1,6 +1,9 @@
 <?php
 
 Kirby::plugin('andrekelling/kirby-block-finder', [
+  'options' => [
+    'fieldName' => 'blocks'
+  ],
   'areas' => [
     'block-finder' => function () {
       return [
@@ -15,6 +18,9 @@ Kirby::plugin('andrekelling/kirby-block-finder', [
                 'component' => 'k-block-finder-view',
                 'title' => 'Block Usage Finder',
                 'search'    => 'pages',
+                'props' => [
+                  'fieldName' => option('andrekelling.kirby-block-finder.fieldName')
+                ],
                 'breadcrumb' => [
                   [
                     'label' => 'Block Usage'
@@ -50,17 +56,9 @@ Kirby::plugin('andrekelling/kirby-block-finder', [
           }
           $kirby = kirby();
           $results = [];
+          $fieldName = option('andrekelling.kirby-block-finder.fieldName');
 
           foreach (site()->index() as $page) {
-            // TODO make fieldName configurable
-            $fieldName = 'blocks';
-
-//            if ( !$page->content()->has($fieldName)) {
-//              return new Response(json_encode([
-//                'status'  => 'error',
-//                'message' => 'page does not have field: ' . $fieldName
-//              ]), 'application/json', 400);
-//            }
             foreach($kirby->languages() as $lang) {
               $langCode = $lang->code();
 

@@ -2,11 +2,14 @@
   <k-panel-inside>
     <k-header>Block Usage</k-header>
 
+    <k-text>Searching blocks of the <code>{{ fieldName }}</code> field in all pages.</k-text>
+
     <k-select-field
         :options="options"
         v-model="selected"
         @input="search"
-        label="Block Type" />
+        label="Block Type"
+        style="margin-top: 1rem;" />
 
     <k-item
         v-if="error"
@@ -62,6 +65,13 @@
 
 <script>
 export default {
+
+  props: {
+    fieldName: {
+      type: String,
+      default: "blocks"
+    }
+  },
 
   data() {
     return {
