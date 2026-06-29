@@ -9,6 +9,10 @@ direct link into the Panel.
 
 ![screenshot](screenshot.png)
 
+## Motivation
+
+Did you ever found yourself asking: How to find out if a block is used on my customers’ website, which is just accessible via FTP?
+
 ## Features
 
 - Panel view listing all available block types from your blueprints
@@ -16,6 +20,11 @@ direct link into the Panel.
 - Multi-language aware — reports occurrences per language
 - Shows occurrence count and a deep link to the page in the Panel
 - Configurable blocks field name
+
+### Limitations
+
+- Does not support nested blocks. Currently, it expects that the block-containing field is living at the root of a pages fields list.
+- Did not test with a huge number of pages. A batching process would be more suited for that.
 
 ## Requirements
 
