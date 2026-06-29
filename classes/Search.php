@@ -23,7 +23,7 @@ final class Search
           continue;
         }
 
-        $blocksField = $page->content()->get($fieldName);
+        $blocksField = $page->content($langCode)->get($fieldName);
 
         if ($blocksField->isEmpty()) {
           continue;
