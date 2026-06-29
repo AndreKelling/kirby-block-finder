@@ -3,7 +3,6 @@
 namespace BlockFinder;
 
 use Kirby\Cms\Page;
-use Kirby\Content\Content;
 use Kirby\Content\Field;
 
 final class Search

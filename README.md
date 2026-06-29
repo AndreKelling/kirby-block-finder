@@ -1,9 +1,9 @@
 # Kirby Block Finder
 
-A Kirby 5 Panel plugin that finds where a given block type is used across your site.
+A Kirby 5 Panel plugin that finds where a given custom block type is used across your site.
 
 It adds a **Block Finder** entry to the Panel menu. Pick a block type and the
-plugin scans every page (in every language) for that block in a configurable
+plugin scans every page (in every language if so) for that block in a configurable
 blocks field, listing each page, the language, the number of occurrences, and a
 direct link into the Panel.
 
@@ -15,15 +15,15 @@ Did you ever found yourself asking: How to find out if a block is used on my cus
 
 ## Features
 
-- Panel view listing all available block types from your blueprints
+- Panel view listing all available block types from your blueprints of a provided blocks typed field
 - Searches every page returned by `site()->index()`
 - Multi-language aware — reports occurrences per language
 - Shows occurrence count and a deep link to the page in the Panel
-- Configurable blocks field name
+- Configurable _blocks typed field_ and _blocks field name for a page template_
 
 ### Limitations
 
-- Does not support nested blocks. Currently, it expects that the block-containing field is living at the root of a pages fields list.
+- Does not support nested blocks. Currently, it expects that the block-containing field is living at the root of a pages fields.
 - Did not test with a huge number of pages. A batching process would be more suited for that.
 
 ## Requirements
@@ -49,18 +49,19 @@ Download and copy this repository to /site/plugins/kirby-block-finder.
 
 ## Options
 
-By default the plugin looks in a blocks field named `blocks`. Override the field
-name in `site/config/config.php`:
+Override options in `site/config/config.php`:
 
 ```php
 return [
+    'andrekelling.kirby-block-finder.blueprintName' => 'fields/builder',
     'andrekelling.kirby-block-finder.fieldName' => 'myBlocksField',
 ];
 ```
 
-| Option      | Default    | Description                                   |
-| ----------- | ---------- | --------------------------------------------- |
-| `fieldName` | `blocks` | Name of the blocks field to search on a page. |
+| Option          | Default          | Description                                   |
+|-----------------|------------------|-----------------------------------------------|
+| `blueprintName` | `fields/builder` | Name of the blocks type field blueprint file. |
+| `fieldName`     | `blocks`         | Name of the blocks field to search on a page. |
 
 ## Development
 

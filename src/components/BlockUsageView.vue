@@ -85,7 +85,9 @@ export default {
   async created() {
     const blocks = await this.$api.get(
         "block-finder/block-types"
-    );
+    ).catch(error => {
+      this.error = error.message;
+    });
 
     this.options = blocks.map(type => ({
       value: type,
