@@ -15,7 +15,7 @@ Did you ever found yourself asking: How to find out if a block is used on my cus
 
 ## Features
 
-- Panel view listing all available block types from your blueprints of a provided blocks typed field
+- Panel view listing all available block types of a provided blocks typed field fieldset
 - Searches every page returned by `site()->index()`
 - Multi-language aware — reports occurrences per language
 - Shows occurrence count and a deep link to the page in the Panel
