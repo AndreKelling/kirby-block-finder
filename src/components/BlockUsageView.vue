@@ -38,7 +38,7 @@
 
       <template v-for="result in results"
                 :key="`${result.pageId}-${result.field}`">
-        <h3>{{ result.title }}</h3>
+        <h3>{{ result.title }} {{ result.isDraft ? '(draft)' : '' }}</h3>
 
         <p>
           {{ result.lang }}/{{ result.pageId }}

@@ -4,7 +4,7 @@
   "homepage:": "https://github.com/AndreKelling/kirby-block-finder/",
   "license": "MIT",
   "type": "kirby-plugin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "authors": [
     {
       "name": "André Kelling",

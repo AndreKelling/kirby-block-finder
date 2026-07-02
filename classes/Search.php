@@ -36,7 +36,7 @@ final class Search
   {
     $results = [];
     $fieldName = \option('andrekelling.kirby-block-finder.fieldName');
-    foreach (\site()->index() as $page) {
+    foreach (\site()->index(true) as $page) {
       foreach ($this->langCodes as $lang) {
         if (!$page->content($lang)->exists()) {
           continue;
@@ -50,12 +50,15 @@ final class Search
         $count = self::getBlocksCount($blocksField, $type);
 
         if ($count > 0) {
+          $panelUrl = $page->panel()->url() . $lang ?? '?language=' . $lang;
+
           $results[] = [
             'lang' => $lang,
             'pageId' => $page->id(),
             'title' => $page->title()->value(),
+            'isDraft' => $page->isDraft(),
             'count' => $count,
-            'panelUrl' => $page->panel()->url() . '?language=' . $lang
+            'panelUrl' => $panelUrl
           ];
         }
       }

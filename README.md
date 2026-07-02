@@ -16,7 +16,7 @@ Did you ever found yourself asking: How to find out if a block is used on my cus
 ## Features
 
 - Panel view listing all available block types of a provided blocks typed field fieldset
-- Searches every page returned by `site()->index()`
+- Searches every page returned by `site()->index(true)`
 - Multi-language aware — reports occurrences per language
 - Shows occurrence count and a deep link to the page in the Panel
 - Configurable _blocks typed field_ and _blocks field name for a page template_
