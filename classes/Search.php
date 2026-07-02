@@ -50,7 +50,7 @@ final class Search
         $count = self::getBlocksCount($blocksField, $type);
 
         if ($count > 0) {
-          $panelUrl = $page->panel()->url() . $lang ?? '?language=' . $lang;
+          $panelUrlLangParam =  $lang ? '?language=' . $lang : '';
 
           $results[] = [
             'lang' => $lang,
@@ -58,7 +58,7 @@ final class Search
             'title' => $page->title()->value(),
             'isDraft' => $page->isDraft(),
             'count' => $count,
-            'panelUrl' => $panelUrl
+            'panelUrl' => $page->panel()->url() . $panelUrlLangParam
           ];
         }
       }
