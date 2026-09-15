@@ -11,6 +11,8 @@
         label="Block Type"
         style="margin-top: 1rem;" />
 
+    <k-text v-if="total">Found <code>{{ total }}</code> occurrences.</k-text>
+
     <k-item
         v-if="error"
         :image="{ icon: 'bug' }"
@@ -57,8 +59,6 @@
           link
         </k-button>
       </template>
-
-
     </k-grid>
   </k-panel-inside>
 </template>
@@ -78,6 +78,7 @@ export default {
       selected: null,
       options: [],
       results: [],
+      total: 0,
       error: null
     };
   },
@@ -96,7 +97,6 @@ export default {
   },
 
   methods: {
-
     async search() {
       if (!this.selected) {
         this.results = [];
@@ -109,6 +109,11 @@ export default {
         this.error = error.message;
         this.results = [];
       });
+
+      this.total = 0;
+      this.results.forEach(result =>
+          this.total += result.count
+      )
     }
   }
 };
